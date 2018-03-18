@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service';
 
 import { MaterializeModule } from 'angular2-materialize';
 import { AppComponent } from './app.component';
@@ -32,7 +35,11 @@ import {AppRoutingModule} from './router/router.module';
     BrowserModule,
     MaterializeModule,
     NgMasonryGridModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    )
   ],
   providers: [ContainerService],
   bootstrap: [AppComponent]

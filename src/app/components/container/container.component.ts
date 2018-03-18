@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContentInfo } from '../contentInfo';
-import { ContainerService } from  '../../services/container.service';
+import { ContainerService } from '../../services/container.service';
 
 @Component({
   selector: 'app-container',
@@ -12,7 +12,8 @@ export class ContainerComponent implements OnInit {
   constructor(private containerService: ContainerService) { }
   contents: ContentInfo[] = [];
   getimages(): void {
-    this.contents = this.containerService.getImg();
+    this.containerService.getImg()
+      .subscribe(resImgData => this.contents = resImgData);
   }
   ngOnInit() {
     this.getimages();

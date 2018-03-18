@@ -10,23 +10,23 @@ import { ContainerService } from  '../../services/container.service';
 export class LifeworkComponent implements OnInit {
 
   constructor(private containerService: ContainerService) { }
-  contents: ContentInfo[] = [];
   lifework: ContentInfo[] = [];
   a = 0;
   getimages(): void {
-    this.contents = this.containerService.getImg();
+    this.containerService.getImg()
+      .subscribe(resImgData => {
+          for (let i = 0; i < resImgData.length ; i++) {
+            if (resImgData[i].type.includes('LIFE')) {
+              this.lifework[this.a] = resImgData[i];
+              this.a++;
+            }
+          }
+        }
+      );
   }
-  getLifework() {
-    for (let i = 0; i < this.contents.length ; i++) {
-      if (this.contents[i].type.includes('LIFE')) {
-        this.lifework[this.a] = this.contents[i];
-        this.a++;
-      }
-    }
-  }
+
   ngOnInit() {
     this.getimages();
-    this.getLifework();
   }
 
 }

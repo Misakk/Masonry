@@ -10,23 +10,22 @@ import { ContainerService } from  '../../services/container.service';
 export class CommercialComponent implements OnInit {
 
   constructor(private containerService: ContainerService) { }
-  contents: ContentInfo[] = [];
   commercial: ContentInfo[] = [];
   a = 0;
   getimages(): void {
-    this.contents = this.containerService.getImg();
-  }
-  getCommercial() {
-    for (let i = 0; i < this.contents.length ; i++) {
-      if (this.contents[i].type.includes('COMMERCIAL')) {
-        this.commercial[this.a] = this.contents[i];
-        this.a++;
+    this.containerService.getImg()
+      .subscribe(resImgData => {
+          for (let i = 0; i < resImgData.length ; i++) {
+            if (resImgData[i].type.includes('COMMERCIAL')) {
+              this.commercial[this.a] = resImgData[i];
+              this.a++;
+            }
+          }
       }
-    }
+  );
   }
   ngOnInit() {
     this.getimages();
-    this.getCommercial();
   }
 
 }
